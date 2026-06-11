@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block title %}Engineering Portfolio - Projects{% endblock %}
+
+{% block content %}
+<div class="hero">
+    <h1>{{ developer.name }}</h1>
+    <p>Software Engineer | Full Stack Developer</p>
+    <div class="contact-links">
+        <a href="tel:{{ developer.phone }}">{{ developer.phone }}</a>
+        <a href="{{ developer.linkedin }}" target="_blank">LinkedIn</a>
+    </div>
+</div>
+
+<h2 style="margin-bottom: 2rem; color: #333;">Featured Projects</h2>
+
+<div class="projects-grid">
+    {% for project in projects %}
+    <a href="/project/{{ project.id }}" class="project-card">
+        <img src="{{ project.image }}" alt="{{ project.title }}" class="project-image">
+        <div class="project-content">
+            <h3>{{ project.title }}</h3>
+            <p>{{ project.summary }}</p>
+            <div class="tech-tags">
+                {% for tech in project.technologies[:3] %}
+                <span class="tech-tag">{{ tech }}</span>
+                {% endfor %}
+                {% if project.technologies|length > 3 %}
+                <span class="tech-tag">+{{ project.technologies|length - 3 }}</span>
+                {% endif %}
+            </div>
+        </div>
+    </a>
+    {% endfor %}
+</div>
+{% endblock %}
